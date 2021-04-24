@@ -1,0 +1,250 @@
+/*===========================*
+ *
+ *        .root
+ *
+ *===========================*/
+ 
+.root
+{
+    margin: 15px;
+    padding: 6px 16px 20px 16px;
+    border-radius: 15px;
+    background: linear-gradient(-15deg, #E0E0EA, #FEF0F0);
+    min-height: 150px;
+    min-width: 390px;
+    box-shadow: 0px 0px 2px 2px #D0D0DA;
+    cursor: default;
+}
+
+/*===========================*
+ *
+ *        .header
+ *
+ *===========================*/
+ 
+.root .header 
+{
+    margin: 0;
+    font-weight: 100;
+    font-family: sans-serif;
+    color: #84829d;
+    border-bottom: 1px inset #b3b3c2;
+    font-variant: small-caps;
+    font-size: 1.8em;
+    padding: 10px 0px 5px 0px;
+    min-height: 100px;
+    position: relative;
+}
+
+.root .header .img_wrapper img 
+{
+    display: block;
+    width: 90px;
+    height: 90px;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: box-shadow .3s 0s ease-out;
+}
+
+.root .header:hover img
+{
+  box-shadow: -3px -3px 4px -2px black;
+}
+
+.header .name_wrapper
+{
+  position: absolute;
+  top: 5px;
+  left: 110px;
+  
+}
+
+.header .name_wrapper .nickname
+{
+  transition: color .3s 0s linear;
+}
+
+.header:hover .name_wrapper .nickname
+{
+  color: black;
+}
+
+.header .name_wrapper .nickname::after
+{
+  content: attr(data-realname);
+  color: black;
+  font-size: .4em;
+  opacity: 0%;
+  transition: opacity .3s .18s ease-out;
+  display: block;
+}
+
+.header:hover .name_wrapper .nickname::after
+{
+  opacity: 100%;
+}
+
+
+/*===========================*
+ *                           *
+ *       TABLE.info          *
+ *                           *
+ *===========================*/
+ 
+.root table.info
+{
+    margin-top: 12px;
+    border-collapse: collapse;
+}
+/*
+.task-root table.info tr:nth-of-type(odd)
+{
+  
+}
+
+.task-root table.info tr:nth-of-type(even)
+{
+   
+}
+*/
+.root table.info tr
+{
+    transition: background-color .4s 0s linear;
+    height: 2em;
+}
+
+.root table.info td
+{
+    padding: 10px 15px 10px 4px; 
+    transition: border-color .5s 0s linear;
+}
+
+.root table.info tr td:nth-child(1)
+{
+    white-space: nowrap;
+    vertical-align: middle;
+    font-size: 16px;
+    font-family: sans-serif; 
+    text-align: left;
+    border-bottom: 1px dashed rgb(200,200,200);
+}
+ 
+.root table.info td:nth-child(2)
+{
+    border-bottom: 1px solid rgb(190,190,190);
+    width: 100%;
+    font-family: monospace;
+}
+
+/*
+.root table.info tr:hover
+{
+    
+}
+
+.root table.info tr:hover td:nth-child(1)
+{
+ 
+}
+
+.root table.info tr:hover td:nth-child(2)
+{
+
+}
+*/
+
+/*===========================*
+ *                           *
+ *       audio               *
+ *                           *
+ *===========================*/
+ 
+audio
+{
+    display: block;
+    position: absolute;
+    right: 0px;
+    top: 5px;
+}
+
+@media (max-width: 660px) {
+    audio {
+        top: initial;
+        bottom: 5px;        
+    }
+}
+
+
+
+/*===========================*
+ *
+ *      # (MISC COMMON)
+ *
+ *===========================*/
+.hidden 
+{
+    display: none;
+}
+
+.write_execution td,
+.flickering td 
+{
+    border-bottom: transparent !important;
+}
+
+.write_execution
+{
+    background-color: #f8f9ce;
+}
+
+.flickering
+{
+    animation-fill-mode: forward;
+    animation: flicker_start 3s cubic-bezier(.1, .7, 1, 1) 0s 1 normal,
+               flicker_persistent 3s cubic-bezier(.1, .7, 1, 1) 3s infinite normal 
+    ;
+    opacity: 0%;
+    background-color: #aed4c8;
+}
+
+/*===========================*
+ *
+ *      # (ANIMATION)
+ *
+ *===========================*/
+@keyframes flicker_start
+{
+    from {
+        opacity: 0%;
+        animation-timing-function: ease-out;
+    }
+    40% {
+        opacity: 100%;
+        animation-timing-function: ease-in;
+    }
+    55% {
+        opacity: 100%;
+    }
+    to {
+        opacity: 40%;
+    } 
+}
+
+@keyframes flicker_persistent
+{
+    from {
+        opacity: 40%;
+        animation-timing-function: ease-out;
+    }
+    40% {
+        opacity: 100%;
+        animation-timing-function: ease-in;
+    }
+    55% {
+        opacity: 100%;
+    }
+    to {
+        opacity: 40%;
+    } 
+}
+
