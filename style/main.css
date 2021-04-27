@@ -96,17 +96,7 @@
     margin-top: 12px;
     border-collapse: collapse;
 }
-/*
-.task-root table.info tr:nth-of-type(odd)
-{
-  
-}
 
-.task-root table.info tr:nth-of-type(even)
-{
-   
-}
-*/
 .root table.info tr
 {
     transition: background-color .4s 0s linear;
@@ -135,23 +125,6 @@
     width: 100%;
     font-family: monospace;
 }
-
-/*
-.root table.info tr:hover
-{
-    
-}
-
-.root table.info tr:hover td:nth-child(1)
-{
- 
-}
-
-.root table.info tr:hover td:nth-child(2)
-{
-
-}
-*/
 
 /*===========================*
  *                           *
