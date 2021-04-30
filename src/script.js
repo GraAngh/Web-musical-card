@@ -4,16 +4,20 @@
  * 1.2:
  * [x] Добавление фоновой музыки
  * [x] Замедление распечатки, под темп музыки
- * [] Улучшение взаимодествия звука
+ * [x] Улучшение взаимодествия звука
+ *
+ * 1.3:
+ * [x] Подправлен стиль отображения. Добавлен адаптированный
+ * [x] Вынесена информацию в отдельный файл
  */
 'use strict';
 
 document.addEventListener('DOMContentLoaded',  main);
 
- /*===========================================*
+ /*==========================================*
  *   
- *--------------  FUNCTIONS  ----------------*
- *-------------- DEFINITIONS ----------------*
+ * -------------  FUNCTIONS  --------------- *
+ * ------------- DEFINITIONS --------------- *
  *
  *===========================================*/
 function ghostWritting(text, container, conf) {
@@ -96,26 +100,34 @@ function fillInfo(
     };
 }
 
-function main() {
-    const audio = document.querySelector('audio');
-    // const cardHeader = document.querySelector('.root .header');
-    
-    const content =  [
-        ["Вид", "Человек"],
-        ["Описание", "Теплая, как весеннее солнышко"],
-        ["При встрече", "Закатать в одеялко и положить в укромное место. В случае провала притвориться мертвым — понюхает и уйдет; можно повторить попытку"],
-        ["Атака скрипкой", "0 (не будет же она ею бить, а вот кейсом может)"],
-        ["Любимые фразы", '"Мальчик мой, водочки нам унеси. Мы непьющие", "Где бабки, дирижёрик?" и "Скрипка, словно древесина, кинешь в огонь — сгорит"'],
-        ["Пол", "Предположительно, любит теплый"],
-        ["Маккартни", "Знаю, этот был в битлах"]
-    ];
+async function main() {
     const containerSelector = 'table.info';
     const eventName = 'mousemove';
+    const audio = document.querySelector('audio');
+    const cardHeader = document.querySelector('.root .header');
+    const nicknameCont = cardHeader.querySelector('.nickname');
+        
+    const response = await fetch('./data/MM.json');
+    const objInfo = await response.json();
     
+    nicknameCont.textContent = objInfo.nickname;
+    // добавление реального имени или пустой строки (в ролтивном случае) с оборачиванием в круглые скобки
+    nicknameCont.setAttribute('data-realname', '(' + (objInfo.realname || '') + ')');
     
+    const img = document.createElement('img');
+    img.src = objInfo.src.avatar;
+    img.alt = "avatar";
+    img.style ="font-size: 16px; color: gray; text-align: center";
+    cardHeader.querySelector('.img_wrapper').append(img); 
+        
+    const aSource = document.createElement('source');
+    aSource.src = objInfo.src.music.url;
+    aSource.type = objInfo.src.music.mime_type; 
+    audio.append(aSource);
+   
     audio.addEventListener('play', e => {
         setTimeout(() => {
-            fillInfo(content, containerSelector, eventName);
+            fillInfo(objInfo.content, containerSelector, eventName);
         }, 2500);
     }, {once: true})
 }
