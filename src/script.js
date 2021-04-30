@@ -117,7 +117,7 @@ async function main() {
     const img = document.createElement('img');
     img.src = objInfo.src.avatar;
     img.alt = "avatar";
-    img.style ="font-size: 16px; color: gray; text-align: center";
+    img.style = "font-size: 16px; color: gray; text-align: center";
     cardHeader.querySelector('.img_wrapper').append(img); 
         
     const aSource = document.createElement('source');
