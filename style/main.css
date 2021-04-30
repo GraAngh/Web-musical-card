@@ -4,14 +4,23 @@
  *
  *===========================*/
  
+html,
+body
+{
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+ 
 .root
 {
-    margin: 15px;
+    margin: 15px auto;
     padding: 6px 16px 20px 16px;
     border-radius: 15px;
     background: linear-gradient(-15deg, #E0E0EA, #FEF0F0);
     min-height: 150px;
-    min-width: 390px;
+    min-width: 400px;
+    max-width: 660px;
     box-shadow: 0px 0px 2px 2px #D0D0DA;
     cursor: default;
 }
@@ -140,15 +149,6 @@ audio
     top: 5px;
 }
 
-@media (max-width: 660px) {
-    audio {
-        top: initial;
-        bottom: 5px;        
-    }
-}
-
-
-
 /*===========================*
  *
  *      # (MISC COMMON)
@@ -221,3 +221,22 @@ audio
     } 
 }
 
+/*===========================*
+ *
+ *      # (@media (max-width: 660px))
+ *
+ *===========================*/
+
+@media (max-width: 680px) {
+    audio
+        {
+        top: initial;
+        bottom: 5px;        
+    }
+    
+    .root 
+        {
+        margin: 0;
+        border-radius: unset;
+    }
+}
