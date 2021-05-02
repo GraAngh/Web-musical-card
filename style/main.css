@@ -251,7 +251,7 @@ body {
  
 @media (min-width: 820px) {
     .root {
-         margin: 30px auto 0 auto;
+         margin: 30px auto 20px auto;
          box-shadow: 0px 0px 2px 2px #D0D0DA;
          border-radius: 15px; 
     }
