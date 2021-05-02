@@ -53,7 +53,7 @@ function getRowFromTemplate(tElement)
     return clone;
 }
 
-    // Вынес замыкание в отдельную функцию и все пользовательские литералы
+// Вынес замыкание в отдельную функцию и все пользовательские литералы
 function fillInfo(
     infoContent, 
     targetSelector, 
@@ -111,14 +111,14 @@ async function main() {
     const objInfo = await response.json();
     
     nicknameCont.textContent = objInfo.nickname;
-    // добавление реального имени или пустой строки (в ролтивном случае) с оборачиванием в круглые скобки
+    // добавление реального имени или пустой строки (в противном случае) с оборачиванием в круглые скобки
     nicknameCont.setAttribute('data-realname', '(' + (objInfo.realname || '') + ')');
     
     const img = document.createElement('img');
     img.src = objInfo.src.avatar;
     img.alt = "avatar";
     img.style = "font-size: 16px; color: gray; text-align: center";
-    cardHeader.querySelector('.img_wrapper').append(img); 
+    cardHeader.querySelector('.left').append(img); 
         
     const aSource = document.createElement('source');
     aSource.src = objInfo.src.music.url;
