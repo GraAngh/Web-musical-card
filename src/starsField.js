@@ -1,40 +1,38 @@
 'use strict';
-function runStarCanvas(selector, cb) {
+function runStarCanvas(selector, draw) {
     const cnv = document.body.querySelector(selector); 
-    
-    resizeCanvas(cnv);
-    window.addEventListener('resize', e => resizeCanvas(cnv));
-    
     const ctx = cnv.getContext('2d');
-    cb(ctx);
+    window.onresize = e => resizeCanvasCtx(ctx);
     
+    resizeCanvasCtx(ctx);
+    draw(ctx);
     
     /*==========================*/
-    function resizeCanvas(cnv) {
-        console.log('resizing');
-        cnv.width = window.innerWidth;
-        cnv.height = window.innerHeight;
+    function resizeCanvasCtx(ctx) {
+        ctx.canvas.width = window.innerWidth;
+        ctx.canvas.height = window.innerHeight;
     }
 }
 
 function spawnStars(ctx) {
-    const GLIMMER_SIZE = 2;
-    const GLIMMER_PERIOD = 310;
-    const MAX_STATIC_SIZE = 8;
-    const MAX_GLIMMERING_SIZE = 6;
-
+    const GLIMMER_SIZE = 1.6;
+    const GLIMMER_PERIOD = 100;
+    const MAX_STATIC_SIZE = 7;
+    const MAX_GLIMMERING_SIZE = 5;
+    
     let iid = null;
-    let staticStack = randomizeStars(70, MAX_STATIC_SIZE);
+    let staticStack = randomizeStars(70, MAX_STATIC_SIZE, false);
+    staticStack.push.apply(staticStack, randomizeStars(800, 1, false) );
     let glimmerStack = randomizeStars(160, MAX_GLIMMERING_SIZE);
     
     const grd = ctx.createRadialGradient(
-            ctx.canvas.width / 2,
-            ctx.canvas.height / 2,
-            1000,
-            ctx.canvas.width / 2,
-            ctx.canvas.height / 2,
-            0
-        );
+        ctx.canvas.width / 2,
+        ctx.canvas.height / 2,
+        1000,
+        ctx.canvas.width / 2,
+        ctx.canvas.height / 2,
+        0
+    );
     grd.addColorStop(0, "rgb(45,45,55)");
     grd.addColorStop(1, "rgb(15,15,15)");
      
@@ -46,17 +44,17 @@ function spawnStars(ctx) {
      *                                 *
      *=================================*/
     
-    
-    function randomizeStars(num, maxSize) {
+    function randomizeStars(num, maxSize, doCeil = true) {
         const stack = [];
         for (let i = 0; i < num; i++) {
-            stack.push([
-                {
-                    x: Math.random() * ctx.canvas.width,
-                    y: Math.random() * ctx.canvas.height
-                },
-                Math.ceil(Math.random() * maxSize + 1)
-            ]);
+            const coord = {
+                x: Math.random() * ctx.canvas.width,
+                y: Math.random() * ctx.canvas.height
+            };
+            let sSize = Math.random() * maxSize + 1.7;
+            if (doCeil) sSize = Math.ceil(sSize);
+            
+            stack.push([coord, sSize]);
         }
 
         return stack;
@@ -67,7 +65,7 @@ function spawnStars(ctx) {
             resetCanvas(ctx);
             staticStack.forEach((s) => star(ctx, s[0], s[1]));
             glimmerStack.forEach((s) =>
-                    star(ctx, s[0], Math.ceil(Math.random() * GLIMMER_SIZE + s[1]))
+                star(ctx, s[0], (Math.random() * GLIMMER_SIZE) + s[1])
             );
         }, GLIMMER_PERIOD);
     };
