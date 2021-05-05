@@ -202,6 +202,18 @@ body {
     background-color: #aed4c8;
 }
 
+.opacity_4
+{
+    opacity: .4;
+    transition: opacity 2s 0s linear;
+}
+
+.opacity_4:hover
+{
+    opacity: unset;
+    transition: opacity 1s 0s linear;
+}
+
 /*===========================*
  *
  *      # (ANIMATION)

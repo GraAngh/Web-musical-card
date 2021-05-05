@@ -15,6 +15,11 @@ function fillInfo(
     targetSelector, 
     eventName
 ) {
+    const FIRST_W_VELOCITY = 6;
+    const SECOND_W_VELOCITY = 8;
+    const SECOND_W_DELAY = 500;
+    const NEW_ROW_DELAY = 1500;
+    
     const infoContainer = document.querySelector(targetSelector);
     if (!infoContainer) throw "Не удалось получить информационный контейнер";
     const rowTemplate = infoContainer.querySelector('[data-info-row-template]');
@@ -34,16 +39,19 @@ function fillInfo(
         ghostWritting(
             infoContent[currentHandlingIndex][0], 
             this.cells[0], 
-            {writtingVelocity: 6}
+            {writtingVelocity: FIRST_W_VELOCITY}
         ).then(() => ghostWritting(
             infoContent[currentHandlingIndex][1], 
             this.cells[1], 
-            {runDelay: 500, writtingVelocity: 8})
+            {runDelay: SECOND_W_DELAY, writtingVelocity: SECOND_W_VELOCITY})
         ).then(() => { 
             this.classList.remove('write_execution');
             // здесь продолжается цикл добавления записей в таблицу
             if (++currentHandlingIndex < infoContent.length) {
-                setTimeout(initNewRow, 1500);
+                setTimeout(initNewRow, NEW_ROW_DELAY);
+            } else {
+                const ancestor = getAncestorByClass(infoContainer, 'root');
+                if (ancestor) ancestor.classList.add('opacity_4');
             }
         }); 
     }; 
@@ -54,4 +62,15 @@ function fillInfo(
         cnRow.addEventListener(eventName, forInfoFillingListener, {once: true});
         infoContainer.tBodies[0].append(cnRow);
     };
+}
+
+function getAncestorByClass(forNode, ancestorClass) 
+{
+    let ancestor = forNode.parentElement;
+    while (ancestor) {
+        if ( ancestor.classList.contains(ancestorClass) ) return ancestor;
+        ancestor = ancestor.parentElement;
+    }
+    
+    return null;
 }
