@@ -1,6 +1,6 @@
 # Музыкальная карточка 
 
-https://graangh.github.io/Web-Musical-Card/
+https://graangh.github.io/web-musical-card/
 
 ## TODO
 
