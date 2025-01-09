@@ -1,9 +1,7 @@
-# Задача: *Название*
+# Музыкальная карточка 
 
-## Причина
-        
-Не установлено
+https://graangh.github.io/Web-Musical-Card/
 
-## Описание
+## TODO
 
-Не установлено
+- Переделать звездное небо с помощью [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
